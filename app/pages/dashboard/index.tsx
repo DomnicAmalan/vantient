@@ -2,8 +2,10 @@ import { getWebsiteList } from '@/app/store/reducers/app';
 import { useAppSelector } from '@/app/store/store';
 import { Button, Card, CardActions, CardContent, CardMedia, LinearProgress, Link, Pagination, Tooltip } from '@mui/material';
 import { Box, CardHeader, Grid, Paper, styled, Typography, } from '@mui/material'
+import Axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const CardItem = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#fff',
@@ -27,6 +29,31 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getWebsiteList({page: websitepage, limit: websitelimit}))
   }, [dispatch])
+
+  const subscribe = async(data: any) => {
+    try {
+      const formData = new FormData()
+      formData.append(data?.formaccess?.inputname, 'tt@gmail.com');
+      const {data: resp, status} = await Axios({
+        method: data?.formaccess?.method, 
+        url: `${data?.url.replace(/\/$/, "")}${data?.formaccess?.action}`,
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        data: formData
+     })
+     if(status === 200) {
+        toast('Subscribed Successfully', {
+          type: 'success'
+        })
+     }
+    } catch(e) {
+      toast('Failed to Subscribe', {
+        type: 'error'
+      })
+
+    }
+  }
   
   return (
     <Box sx={{ flexGrow: 1, padding: 20 }}>
@@ -125,6 +152,7 @@ const Dashboard = () => {
                     variant='contained' 
                     size="small"
                     fullWidth
+                    onClick={() => subscribe(item)}
                   >
                     Subscribe to this product
                   </Button>

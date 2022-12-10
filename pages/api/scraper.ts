@@ -18,7 +18,7 @@ export default async(req: NextApiRequest, res: NextApiResponse) => {
         }
         const formparent = await html('form').last()
         const newsletterparrentclass = formparent?.get(0)?.attribs
-        const newsletterinputid = formparent.find('input').get(0)?.attribs
+        const newsletterinputid = formparent.find('[type="email"]').get(0)?.attribs
         if (newsletterparrentclass || newsletterinputid) {
           tag['formaccess'] = {
             inputid: newsletterinputid?.id,

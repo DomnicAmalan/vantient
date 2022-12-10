@@ -8,8 +8,10 @@ import IconButton from '@mui/material/IconButton';
 import Image from 'next/image';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const AppNavBar: React.FC<React.PropsWithChildren> = (props) => {
+  const router = useRouter()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ backgroundColor: 'white', boxShadow: 0.3 }}>
@@ -20,6 +22,7 @@ const AppNavBar: React.FC<React.PropsWithChildren> = (props) => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={() => router.push('/')}
           >
             <Image 
               src={require('@/assets/brandlogo.png')}
