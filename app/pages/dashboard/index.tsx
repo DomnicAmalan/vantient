@@ -9,15 +9,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-
-const CardItem = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  borderRadius: 4
-}));
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
 const Dashboard = () => {
   const {
@@ -140,8 +132,8 @@ const Dashboard = () => {
                 sx={{
                   maxWidth: 400,
                   margin: "0 auto",
-                  // padding: "0.1em",
-                  maxHeight: 375,
+                  minHeight: 345,
+                  maxHeight: 345,
                   overflow: 'hidden'
                 }}
               >
@@ -154,8 +146,11 @@ const Dashboard = () => {
                 src={!/^(?:f|ht)tps?\:\/\//.test(item?.image) ?  `https:${item?.image}`: item?.image}
               />
                <CardContent>
-                  <Link href={item.url} target='_blank'>
-                    {item?.url}
+                  <Link sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} href={item.url} target='_blank'>
+                    <InsertLinkIcon sx={{ fontSize: 20, mr: 0.4 }} />
+                    <Typography sx={{ fontSize: 12, fontWeight: 400 }}>
+                      {item?.url}
+                    </Typography>
                   </Link>
                   <Tooltip title={item?.title}>
                     <Typography 
@@ -167,6 +162,8 @@ const Dashboard = () => {
                         display: '-webkit-box',
                         WebkitLineClamp: '1',
                         WebkitBoxOrient: 'vertical',
+                        fontSize: 15,
+                        color: '#222222'
                       }} 
                     >
                       {item?.title}
@@ -180,6 +177,7 @@ const Dashboard = () => {
                       display: '-webkit-box',
                       WebkitLineClamp: '2',
                       WebkitBoxOrient: 'vertical',
+                      fontSize: 10,
                     }} 
                     variant="body2"
                     color="text.secondary"
@@ -201,9 +199,10 @@ const Dashboard = () => {
                               paddingX: 0.8, 
                               marginY: 0.4, 
                               marginX: 0.4, 
-                              backgroundColor: '#55BF18', 
+                              backgroundColor: '#68B984', 
                               borderRadius: 1, 
                               flexDirection: 'row',
+                              fontSize: 12
                             }} 
                           >
                             {item}
@@ -214,9 +213,9 @@ const Dashboard = () => {
                     })}
                   </Grid>
                 </CardContent>
-                <CardActions>
+                <CardActions >
                   <Button 
-                    sx={{color: '#18BF9C'}} 
+                    sx={{backgroundColor: '#3D5656', fontSize: 10}} 
                     variant='contained' 
                     size="small"
                     fullWidth
