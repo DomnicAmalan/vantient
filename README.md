@@ -44,4 +44,5 @@ Design Considerations:
   - Designs in separate files (Clean Code)
   - V3 Captcha based subscriptions(Hack)
   - After Scraping manual addition or editing of parameters (More power to admin users)
+  - Bulk Addition of url (Queue Based System)
 
