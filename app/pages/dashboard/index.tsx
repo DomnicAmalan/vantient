@@ -1,8 +1,11 @@
 import { getWebsiteList } from '@/app/store/reducers/app';
 import { useAppSelector } from '@/app/store/store';
-import { Button, Card, CardActions, CardContent, CardMedia, LinearProgress, Link, Pagination, Tooltip } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardMedia, Input, LinearProgress, Link, Modal, Pagination, TextField, Tooltip } from '@mui/material';
 import { Box, CardHeader, Grid, Paper, styled, Typography, } from '@mui/material'
 import Axios from 'axios';
+import { Formik } from 'formik';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -30,40 +33,105 @@ const Dashboard = () => {
     dispatch(getWebsiteList({page: websitepage, limit: websitelimit}))
   }, [dispatch])
 
+  const [emailModal, setEmailModal] = useState(false)
   const subscribe = async(data: any) => {
     try {
-      const formData = new FormData()
-      formData.append(data?.formaccess?.inputname, 'tt@gmail.com');
-      const {data: resp, status} = await Axios({
-        method: data?.formaccess?.method, 
-        url: `${data?.url.replace(/\/$/, "")}${data?.formaccess?.action}`,
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        data: formData
-     })
-     if(status === 200) {
-        toast('Subscribed Successfully', {
-          type: 'success'
-        })
-     }
+      const email = await localStorage.getItem('email')
+      if(!email){
+        setEmailModal(true)
+      } else {
+        if(data?.formaccess?.action && data?.formaccess?.inputname) {
+          const formData = new FormData()
+          formData.append(data?.formaccess?.inputname, email);
+          const {data: resp, status} = await Axios({
+            method: data?.formaccess?.method, 
+            url: `${data?.url.replace(/\/$/, "")}${data?.formaccess?.action}`,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            data: formData
+          })
+          if(status === 200) {
+              toast('Subscribed Successfully', {
+                type: 'success'
+              })
+          } 
+        }
+      }
     } catch(e) {
       toast('Failed to Subscribe', {
         type: 'error'
       })
-
     }
   }
   
   return (
     <Box sx={{ flexGrow: 1, padding: 20 }}>
-      {websitestotal > 0 ? 
-        <Pagination 
-          count={Math.ceil(websitestotal/websitelimit)} 
-          page={websitepage+1}
-          onChange={(e, number) => dispatch(getWebsiteList({page: number-1, limit: websitelimit}))}
-        />: 
-      null}
+      <Grid sx={{ marginY: 3 }}>
+        {websitestotal > 0 ? 
+          <Pagination 
+            count={Math.ceil(websitestotal/websitelimit)} 
+            page={websitepage+1}
+            onChange={(e, number) => dispatch(getWebsiteList({page: number-1, limit: websitelimit}))}
+          />: 
+        null}
+      </Grid>
+      <Grid container>
+        <Formik
+          initialValues={{ email: '' }}
+          onSubmit={async(values, { resetForm }) => {
+            await localStorage.setItem('email', values?.email)
+            await resetForm()
+            await setEmailModal(false)
+            await toast('Added Email succesfully', {
+              type: 'success'
+            })
+          }}
+        >
+        {({
+          values,
+          handleChange,
+          handleSubmit,
+          isValid,
+          handleBlur
+        }) => (
+          <Modal
+            open={emailModal}
+            onClose={() => setEmailModal(false)}
+            sx={{
+              display:'flex',
+              alignItems:'center',
+              justifyContent:'center'
+            }}
+          >
+            <Grid
+              sx={{ backgroundColor: 'white'}} 
+              height={'50vh'} 
+              width={'600px'}
+              justifyContent='center'
+              alignItems={'center'}
+              p={3}
+            >
+              <TextField 
+                fullWidth
+                placeholder='Enter email to subscribe'
+                name='email'
+                onChange={handleChange('email')}
+                required
+                value={values?.email}
+                onBlur={handleBlur('email')}
+                sx={{
+                  mb: 2
+                }}
+              />
+              <Button onClick={() => handleSubmit()} fullWidth variant='contained'>
+                Submit
+              </Button>
+            </Grid>
+          </Modal>
+        )}
+        </Formik>
+      </Grid>
       {websitelist?.length ? 
         <Grid container spacing={2}>
           {websitelist?.map((item: any, idx: number) => (

@@ -36,7 +36,7 @@ const AddWebsite = () => {
               onChange={handleChange('url')}
               required
               value={values?.url}
-              onBlur={handleBlur('email')}
+              onBlur={handleBlur('url')}
             />
             <Button sx={{ marginY: 1 }} variant='contained' disabled={!isValid ||  urladdloading} onClick={(data: any) => handleSubmit(data)}>
               {urladdloading ? <CircularProgress />: 'Add URL'}
