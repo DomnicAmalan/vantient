@@ -231,9 +231,9 @@ const Dashboard = () => {
           No Items to display
         </Grid>
       }
-      {websitelistloading ? <Grid container alignItems={'center'} justifyContent='center'>
-          <LinearProgress />
-        </Grid>: null} 
+      {websitelistloading ? <Box sx={{ width: '100%', height: '50vh', alignItems: 'center' }}>
+        <LinearProgress />
+      </Box>: null} 
     </Box>
   )
 }
