@@ -47,3 +47,4 @@ Design Considerations:
   - Bulk Addition of url (Queue Based System)
   - Add sitemap for external websites
   - Individual pages for each websites
+  - Cron to scroll various shopping websites and add to queue for scraping
