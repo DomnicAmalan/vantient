@@ -58,6 +58,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     font-size: 12px;
+    height: 34px;
   }
   .categorycontainer {
     display: flex;
@@ -68,10 +69,11 @@
     overflow-x: auto;
     white-space: nowrap;
     flex-direction: row;
+    height: 30px;
   }
   .categoryitems {
-    padding: 0rem 0.8rem;
-    margin: 0.4rem;
+    padding: 0.1rem 0.5rem;
+    margin: 0.3rem;
     background-color: #68B984;
     border-radius: 0.3rem;
     flex-direction: row;
