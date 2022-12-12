@@ -1,0 +1,89 @@
+.container {
+  flex-grow: 1;
+  padding: 8rem;
+}
+.modalcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .innercontainer {
+    background-color: whitesmoke;
+    height: 50vh;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    flex-direction: column;
+  }
+}
+.itemcard {
+  max-width: 400px;
+  margin: 0 auto;
+  min-height: 345px;
+  max-height: 345px;
+  overflow: hidden;
+  .img {
+    width: "100%";
+    height: 150px;
+    object-fit: cover;
+  }
+  .linkcontainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .linkicon {
+    font-size: 20px;
+    margin-right: 0.4rem;
+  }
+  .link {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .headtitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 20px;
+    color: #222222;
+    font-weight: 700;
+  }
+  .carddesc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 12px;
+  }
+  .categorycontainer {
+    display: flex;
+    margin-top: 2px;
+    flex-direction: row;
+    max-width: 400px;
+    overflow-y: scroll;  
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-direction: row;
+  }
+  .categoryitems {
+    padding: 0rem 0.8rem;
+    margin: 0.4rem;
+    background-color: #68B984;
+    border-radius: 0.3rem;
+    flex-direction: row;
+    font-size: 12px;
+  }
+}
+.cardactionbutton {
+  background-color: #3D5656;
+  font-size: 10px;
+}
+.progressbar {
+  width: 100%;
+  height: 50vh;
+  align-items: center;
+}

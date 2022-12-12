@@ -1,11 +1,16 @@
-import { Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Grid, Link, Paper, styled, TextField, Typography } from '@mui/material'
+import { Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Grid, Link, TextField, Typography } from '@mui/material'
 import {Formik} from 'formik'
 import { useDispatch } from 'react-redux';
 import { addUrl } from '@/app/store/reducers/app';
 import { useAppSelector } from '@/app/store/store';
 import AddIcon from '@mui/icons-material/Add';
+import styles from './addwebsite.module.scss';
 
 const AddWebsite = () => {
+
+  // Styles
+
+  // redux
   const dispatch = useDispatch()
   const { 
     urladdloading,
@@ -13,7 +18,7 @@ const AddWebsite = () => {
   } = useAppSelector(state => state?.app)
 
   return (
-    <Grid sx={{ flexGrow: 1, padding: 20 }} flexDirection='column' container alignItems='center' justifyContent={'center'}>
+    <Grid className={styles.maincontainer} flexDirection='column' container alignItems='center' justifyContent={'center'}>
       <Formik
         initialValues={{ url: '' }}
         onSubmit={(values, { resetForm }) => {
@@ -38,7 +43,12 @@ const AddWebsite = () => {
               value={values?.url}
               onBlur={handleBlur('url')}
             />
-            <Button sx={{ marginY: 1 }} variant='contained' disabled={!isValid ||  urladdloading} onClick={(data: any) => handleSubmit(data)}>
+            <Button 
+              sx={{ marginY: 1 }} 
+              variant='contained' 
+              disabled={!isValid ||  urladdloading} 
+              onClick={(data: any) => handleSubmit(data)}
+            >
               {urladdloading ? <CircularProgress />: 'Add URL'}
             </Button>
             
@@ -53,7 +63,8 @@ const AddWebsite = () => {
               height="100%"
               width="100%"
               src={
-                !/^(?:f|ht)tps?\:\/\//.test(urladdresult?.image) ?  `https:${urladdresult?.image}`: urladdresult?.image
+                !/^(?:f|ht)tps?\:\/\//.test(urladdresult?.image) ?  
+                  `https:${urladdresult?.image}`: urladdresult?.image
               }
             />
             <CardContent>
@@ -66,29 +77,25 @@ const AddWebsite = () => {
               <Typography variant="body2" color="text.secondary">
                {urladdresult?.description}
               </Typography>
-              <Grid sx={{ display: 'flex', flexWrap: 'wrap', marginTop: 2 }}>
+              <Grid className={styles.categoryContainer}>
                 {urladdresult?.category?.map((item: string) => {
                   return (
-                    <Typography 
-                      sx={{ paddingX: 0.8, paddingY: 0.3, marginX: 1, backgroundColor: '#55BF18', borderRadius: 1}}
-                    >
+                    <Typography className={styles.category}>
                       {item}
                     </Typography>
                   )
                 })}
                 <AddIcon />
               </Grid>
-              <Grid sx={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', marginTop: 2 }}>
+              <Grid className={styles.formaccesscontainer}>
                 {urladdresult?.formaccess && Object?.keys(urladdresult?.formaccess)?.map((item: string) => {
                   return (
                     <Grid container flexDirection={'row'}>
-                      <Typography sx={{ paddingY: 0.3, fontWeight: '600'}}>
+                      <Typography className={styles.typo}>
                         {item}: 
                       </Typography>
-                      <Typography 
-                        sx={{ paddingX: 0.8, paddingY: 0.3, marginX: 1}}
-                      >
-                      {urladdresult?.formaccess[item]}
+                      <Typography className={styles.typovalue}>
+                        {urladdresult?.formaccess[item]}
                       </Typography>
                     </Grid>
                   )

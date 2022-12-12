@@ -1,0 +1,29 @@
+.maincontainer {
+  flex-grow: 1; 
+  padding: 20rem;
+}
+.category {
+  padding: 0.3rem 0.8rem; 
+  margin: 0rem 1rem;
+  background-color: #55BF18;
+  border-radius: 1px;
+}
+.categorycontainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.formaccesscontainer{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  .typohead {
+    padding: 0.3rem 0rem;
+    font-weight: 600;
+  }
+  .typovalue {
+    padding: 0.3rem 0.8rem;
+    margin: 0rem 1rem;
+  }
+}

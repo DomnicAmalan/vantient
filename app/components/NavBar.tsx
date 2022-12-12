@@ -13,7 +13,8 @@ import { useRouter } from 'next/router';
 const AppNavBar: React.FC<React.PropsWithChildren> = (props) => {
   const router = useRouter()
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <>
+    <Box sx={{ flexGrow: 1, mb: 10  }}>
       <AppBar sx={{ backgroundColor: 'white', boxShadow: 0.3 }}>
         <Toolbar>
           <IconButton
@@ -44,8 +45,9 @@ const AppNavBar: React.FC<React.PropsWithChildren> = (props) => {
           </Link>
         </Toolbar>
       </AppBar>
-      {props?.children}
     </Box>
+    {props?.children}
+    </>
   );
 }
 
