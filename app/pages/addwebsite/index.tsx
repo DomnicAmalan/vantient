@@ -77,7 +77,7 @@ const AddWebsite = () => {
               <Typography variant="body2" color="text.secondary">
                {urladdresult?.description}
               </Typography>
-              <Grid className={styles.categoryContainer}>
+              <Grid container marginY={2} className={styles.categoryContainer}>
                 {urladdresult?.category?.map((item: string) => {
                   return (
                     <Typography className={styles.category}>
